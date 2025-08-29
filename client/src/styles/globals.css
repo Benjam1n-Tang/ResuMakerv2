@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@1..1000&display=swap");
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: "DM Sans", sans-serif;
+  @apply bg-[#F1EEEF] dark:bg-[#1C1718] text-[#2A2224] dark:text-[#FCFBFB];
+}
+
+@theme inline {
+  --font-sans: "DM Sans", sans-serif;
+  --font-ysa: "Ysabeau SC", sans-serif;
+  --font-times: "Times New Roman", serif;
+}
+
+@theme {
+  --spacing: 0.5rem;
+
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1400px;
+
+  --color-primary: #702632;
+  --color-primary-light: #963343;
+  --color-primary-dark: #4a1921;
+  --color-primary-content: #e4b1b9;
+  --color-secondary: #577026;
+  --color-secondary-light: #759633;
+  --color-secondary-dark: #394a19;
+  --color-secondary-content: #d3e4b1;
+
+  --color-light-bg: #f1eeef;
+  --color-light-fg: #fcfbfb;
+  --color-light-bd: #e2dcdd;
+  --color-light-t: #2a2224;
+  --color-light-tLight: #705c5f;
+  --color-light-tLighter: #988184;
+
+  --color-dark-bg: #1c1718;
+  --color-dark-fg: #2a2224;
+  --color-dark-bd: #46393b;
+  --color-dark-t: #fcfbfb;
+  --color-dark-tLight: #ddd5d6;
+  --color-dark-tLighter: #af9da0;
+
+  --color-success: #267026;
+  --color-success-content: #b1e4b1;
+  --color-warning: #707026;
+  --color-warning-content: #e4e4b1;
+  --color-error: #702626;
+  --color-error-content: #e4b1b1;
+  --color-info: #264b70;
+  --color-info-content: #b1cae4;
+
+  --text-5xl: 5.6875rem;
+  --text-5xl--letter-spacing: -0.0247em;
+  --text-5xl--line-height: 6rem;
+  --text-4xl: 4.25rem;
+  --text-4xl--line-height: 5rem;
+  --text-4xl--letter-spacing: -0.0229em;
+  --text-3xl: 3.1875rem;
+  --text-3xl--line-height: 3.5rem;
+  --text-3xl--letter-spacing: -0.0206em;
+  --text-2xl: 2.375rem;
+  --text-2xl--line-height: 3rem;
+  --text-2xl--letter-spacing: -0.0174em;
+  --text-xl: 1.8125rem;
+  --text-xl--line-height: 2.5rem;
+  --text-xl--letter-spacing: -0.0134em;
+  --text-l: 1.3125rem;
+  --text-l--line-height: 2rem;
+  --text-l--letter-spacing: -0.0071em;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-base--letter-spacing: 0em;
+  --text-s: 0.75rem;
+  --text-s--line-height: 1.5rem;
+  --text-s--letter-spacing: 0.001em;
+  --text-xs: 0.625rem;
+  --text-xs--line-height: 1rem;
+  --text-xs--letter-spacing: 0.0018em;
+}
+
+@layer components {
+  .max-container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .navBar {
+    min-height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@layer base {
+  ::selection {
+    @apply bg-info-content;
+  }
+
+
+  .dark ::selection {
+    @apply bg-info;
+  }
+
+  button {
+    @apply cursor-pointer text-base font-semibold;
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+
+  h6 {
+    @apply text-l;
+  }
+
+  p {
+    @apply text-base;
+  }
+
+  label {
+    @apply text-sm;
+  }
+
+  small {
+    @apply text-xs;
+  }
+}
+
+@layer utilities {
+  .pg-padX {
+    @apply px-2.5 sm:px-3;
+  }
+
+  .pg-reverse {
+    @apply flex flex-col-reverse xl:flex-row gap-3 min-h-[calc(100dvh_-_6rem)];
+  }
+
+  .pg-base {
+    @apply flex flex-col xl:flex-row gap-3;
+  }
+}
