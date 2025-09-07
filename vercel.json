@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "projects": {
+    "server": {
+      "rootDirectory": "server"
+    }
+  },
+  "builds": [
+    {
+      "src": "server/package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/server/$1"
+    }
+  ]
+}
