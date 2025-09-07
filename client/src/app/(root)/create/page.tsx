@@ -6,7 +6,7 @@ import CreateExperience from "@/components/layout/CreateExperience";
 import CreateHeader from "@/components/layout/CreateHeader";
 import CreateLetter from "@/components/layout/CreateLetter";
 import CreateProject from "@/components/layout/CreateProject";
-import Doc from "@/components/layout/Document";
+import Doc from "@/components/layout/Doc";
 import { UserContext } from "@/context/userContext";
 import { API_PATHS } from "@/lib/apiPaths";
 import axiosInstance from "@/lib/axiosInstance";

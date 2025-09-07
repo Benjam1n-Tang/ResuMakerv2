@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Page, View, Document as PDFDocument, Text, pdf } from "@react-pdf/renderer";
+import { Page, View, Document, Text, pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import { sampleResumes } from "@/data/constants";
@@ -157,7 +157,7 @@ const Doc = ({
   };
 
   const ResumeDocs = ({ data }: PDFProps) => (
-    <PDFDocument title={data.resumeName ? `${data.resumeName}.pdf` : "Resume.pdf"}>
+    <Document title={data.resumeName ? `${data.resumeName}.pdf` : "Resume.pdf"}>
       <Page size="LETTER" style={styles.page}>
         <View style={{ gap: 12 }}>
           <HeaderSection header={data.header} />
@@ -168,11 +168,11 @@ const Doc = ({
           </View>
         </View>
       </Page>
-    </PDFDocument>
+    </Document>
   );
 
   const LetterDocs = ({ data }: PDFProps) => (
-    <PDFDocument
+    <Document
       title={data.letterName ? `${data.letterName}.pdf` : "CoverLetter.pdf"}
     >
       <Page size="LETTER" style={styles.page}>
@@ -189,7 +189,7 @@ const Doc = ({
           <LetterSection name={data.header.name} letter={data.letter} />
         </View>
       </Page>
-    </PDFDocument>
+    </Document>
   );
 
   const saveFile = async () => {
