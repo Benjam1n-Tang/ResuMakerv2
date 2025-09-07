@@ -1,4 +1,4 @@
-import app from "../app.js";
 import serverless from "serverless-http";
+import app from "../app.js";   // your express app (without app.listen)
 
-export const handler = serverless(app)
+export default serverless(app);
