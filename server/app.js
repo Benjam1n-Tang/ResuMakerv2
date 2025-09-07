@@ -21,7 +21,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );
@@ -32,7 +34,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/socials", socialRouter)
+app.use("/api/v1/socials", socialRouter);
 app.use("/api/v1/resumes", resumeRouter);
 app.use("/api/v1/letters", letterRouter);
 app.use("/api/v1/experiences", experienceRouter);
@@ -47,10 +49,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to Benjamin API");
 });
 
-// app.listen(PORT, async () => {
-//   console.log(`ResuMaker is running on http://localhost:${PORT}`);
-//   await connectToDatabase();
-// });
-
+connectToDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`ResuMaker is running on http://localhost:${PORT}`);
+  });
+});
 
 export default app;
