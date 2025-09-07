@@ -1,29 +1,17 @@
 import { Router } from "express";
+import authorize from "../middlewares/auth.middleware.js";
+import { createEducation, deleteEducation, getEducationById, getUserEducation, updateEducation } from "../controllers/education.controller.js";
 
 const educationRouter = Router();
 
-educationRouter.get("/", (req, res) =>
-  res.send({ title: "GET all education" })
-);
+educationRouter.post("/", authorize, createEducation);
 
-educationRouter.get("/user/:id", (req, res) =>
-  res.send({ title: "GET all user education" })
-);
+educationRouter.get("/user", authorize, getUserEducation);
 
-educationRouter.get("/:id", (req, res) =>
-  res.send({ title: "GET education details" })
-);
+educationRouter.get("/:id", authorize, getEducationById);
 
-educationRouter.post("/", (req, res) =>
-  res.send({ title: "CREATE education" })
-);
+educationRouter.put("/:id", authorize, updateEducation);
 
-educationRouter.put("/:id", (req, res) =>
-  res.send({ title: "UPDATE education" })
-);
-
-educationRouter.delete("/:id", (req, res) =>
-  res.send({ title: "DELETE education" })
-);
+educationRouter.delete("/:id", authorize, deleteEducation);
 
 export default educationRouter;

@@ -8,32 +8,25 @@ const skillSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    type: {
-      type: String,
-      enum: ["bullet", "category"],
-      required: [true, "Skill type is required"],
-    },
-    label: {
-      type: String,
-      trim: true,
-      minLength: 3,
-      maxLength: 25,
-      required: [
-        function () {
-          return this.type === "category";
-        },
-        "Label is required when skill type is 'category'",
-      ],
-    },
-    items: {
+    languages: {
       type: [String],
-      validate: [
-        (arr) => arr.length > 0,
-        "At least one skill item is required",
-      ],
-      trim: true,
-      minLength: 1,
-      maxLength: 300,
+      default: []
+    },
+    technical: {
+      type: [String],
+      default: []
+    },
+    web: {
+      type: [String],
+      default: []
+    },
+    other: {
+      type: [String],
+      default: []
+    },
+    interests: {
+      type: [String],
+      default: []
     },
   },
   { timestamps: true }

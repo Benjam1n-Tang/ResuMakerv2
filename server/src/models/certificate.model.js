@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+// export type Certificates = {
+//   title: string;
+//   organization: string;
+//   endDate: string;
+// };
+
 const certificateSchema = new mongoose.Schema(
   {
     user: {
@@ -8,29 +14,21 @@ const certificateSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    name: {
+    title: {
       type: String,
       required: [true, "Certificate name is required"],
       trim: true,
       minLength: 3,
-      maxLength: 60,
-    },
-    issuer: {
-      type: String,
-      trim: true,
-      required: [true, "Certificate issuer is required"],
       maxLength: 100,
     },
-    description: {
+    organization: {
       type: String,
-      required: [true, "Certificate description is required"],
       trim: true,
-      minLength: 5,
-      maxLength: 300,
+      required: [true, "Certificate organization is required"],
+      maxLength: 100,
     },
-    issueDate: {
-      type: Date,
-      required: [true, "Certificate issueDate is required"],
+    endDate: {
+      type: mongoose.Schema.Types.Mixed, 
     },
   },
   { timestamps: true }

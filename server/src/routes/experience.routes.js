@@ -1,29 +1,17 @@
 import { Router } from "express";
+import authorize from "../middlewares/auth.middleware.js";
+import { createExperience, deleteExperience, getExpereinceById, getUserExperiences, updateExperience } from "../controllers/experience.controller.js";
 
 const experienceRouter = Router();
 
-experienceRouter.get("/", (req, res) =>
-  res.send({ title: "GET all experiences" })
-);
+experienceRouter.post("/", authorize, createExperience);
 
-experienceRouter.get("/user/:id", (req, res) =>
-  res.send({ title: "GET all user experiences" })
-);
+experienceRouter.get("/user", authorize, getUserExperiences);
 
-experienceRouter.get("/:id", (req, res) =>
-  res.send({ title: "GET experience details" })
-);
+experienceRouter.get("/:id", authorize, getExpereinceById);
 
-experienceRouter.post("/", (req, res) =>
-  res.send({ title: "CREATE experience" })
-);
+experienceRouter.put("/:id", authorize, updateExperience);
 
-experienceRouter.put("/:id", (req, res) =>
-  res.send({ title: "UPDATE experience" })
-);
-
-experienceRouter.delete("/:id", (req, res) =>
-  res.send({ title: "DELETE experience" })
-);
+experienceRouter.delete("/:id", authorize, deleteExperience);
 
 export default experienceRouter;

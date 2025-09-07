@@ -1,29 +1,17 @@
 import { Router } from "express";
+import authorize from "../middlewares/auth.middleware.js";
+import { createCertificate, deleteCertificate, getCertificateById, getUserCertificates, updateCertificate } from "../controllers/certificate.controller.js";
 
 const certificateRouter = Router();
 
-certificateRouter.get("/", (req, res) =>
-  res.send({ title: "GET all certificates" })
-);
+certificateRouter.post("/", authorize, createCertificate);
 
-certificateRouter.get("/user/:id", (req, res) =>
-  res.send({ title: "GET all user certificates" })
-);
+certificateRouter.get("/user", authorize, getUserCertificates);
 
-certificateRouter.get("/:id", (req, res) =>
-  res.send({ title: "GET certificate details" })
-);
+certificateRouter.get("/:id", authorize, getCertificateById);
 
-certificateRouter.post("/", (req, res) =>
-  res.send({ title: "CREATE certificate" })
-);
+certificateRouter.put("/:id", authorize, updateCertificate);
 
-certificateRouter.put("/:id", (req, res) =>
-  res.send({ title: "UPDATE certificate" })
-);
-
-certificateRouter.delete("/:id", (req, res) =>
-  res.send({ title: "DELETE certificate" })
-);
+certificateRouter.delete("/:id", authorize, deleteCertificate);
 
 export default certificateRouter;

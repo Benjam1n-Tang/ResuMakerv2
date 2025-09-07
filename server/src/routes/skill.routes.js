@@ -1,29 +1,13 @@
 import { Router } from "express";
+import authorize from "../middlewares/auth.middleware.js";
+import { createSkill, getUserSkill, updateSkill } from "../controllers/skill.controller.js";
 
 const skillRouter = Router();
 
-skillRouter.get("/", (req, res) =>
-  res.send({ title: "GET all skills" })
-);
+skillRouter.post("/", authorize, createSkill);
 
-skillRouter.get("/user/:id", (req, res) =>
-  res.send({ title: "GET all user skills" })
-);
+skillRouter.get("/", authorize, getUserSkill);
 
-skillRouter.get("/:id", (req, res) =>
-  res.send({ title: "GET resume skills" })
-);
-
-skillRouter.post("/", (req, res) =>
-  res.send({ title: "CREATE skill" })
-);
-
-skillRouter.put("/:id", (req, res) =>
-  res.send({ title: "UPDATE skill" })
-);
-
-skillRouter.delete("/:id", (req, res) =>
-  res.send({ title: "DELETE skill" })
-);
+skillRouter.put("/:id", authorize, updateSkill);
 
 export default skillRouter;

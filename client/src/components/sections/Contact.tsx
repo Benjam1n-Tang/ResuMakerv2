@@ -11,7 +11,6 @@ const ContactSection = ({ contact }: ContactProps) => (
     {contact && (
       <View style={{ alignItems: "flex-end" }}>
         <Text style={styles.bold}>{contact.name}</Text>
-        <Text style={styles.italic}>{contact.address}</Text>
         <Text style={styles.italic}>
           {contact.city &&
             contact.state &&

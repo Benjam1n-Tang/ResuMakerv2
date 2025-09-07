@@ -5,7 +5,15 @@ import { Page, View, Document, Text, pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import { sampleResumes } from "@/data/constants";
-import { PDFData } from "@/types";
+import {
+  Certificates,
+  Education,
+  Experience,
+  Header,
+  PDFData,
+  Projects,
+  Skills,
+} from "@/types";
 import { styles } from "@/styles/pdfStyles";
 import EducationSection from "../sections/Education";
 import HeaderSection from "../sections/Header";
@@ -52,24 +60,50 @@ type PDFProps = {
 
 type ResumeProps = {
   initialData?: PDFData;
+  resumeTitle?: string;
+  letterTitle?: string;
+  order: SectionKey[];
+  header?: Header;
+  education?: Education[];
+  certificates?: Certificates[];
+  experience?: Experience[];
+  projects?: Projects[];
+  skills?: Skills;
 };
 
-const Doc = ({ initialData }: ResumeProps) => {
+const Doc = ({
+  initialData,
+  resumeTitle,
+  letterTitle,
+  order,
+  header,
+  education,
+  certificates,
+  experience,
+  projects,
+  skills,
+}: ResumeProps) => {
   const [toggle, setToggle] = useState(true);
   const [pdfData, setPdfData] = useState<PDFData>(
-    initialData || sampleResumes[0]
+    initialData || 
+    sampleResumes[0]
   );
   const keyRef = useRef(0);
-  const [order, setOrder] = useState<SectionKey[]>([
-    "education",
-    "experience",
-    "projects",
-    "certificates",
-    "skills",
-  ]);
 
   const handleToggle = () => {
     setToggle(!toggle);
+  };
+
+  const mergedData: PDFData = {
+    ...pdfData,
+    resumeName: resumeTitle,
+    letterName: letterTitle,
+    header: header || pdfData.header,
+    education: education,
+    certificates: certificates,
+    experience: experience,
+    projects: projects,
+    skills: skills
   };
 
   keyRef.current++;
@@ -156,21 +190,25 @@ const Doc = ({ initialData }: ResumeProps) => {
 
   const saveFile = async () => {
     const doc = toggle ? (
-      <ResumeDocs data={pdfData} />
+      <ResumeDocs data={mergedData} />
     ) : (
-      <LetterDocs data={pdfData} />
+      <LetterDocs data={mergedData} />
     );
     const blob = await pdf(doc).toBlob();
 
     const fileName = toggle
-      ? `${pdfData.resumeName ? `${pdfData.resumeName}.pdf` : "Resume.pdf"}`
+      ? `${
+          mergedData.resumeName ? `${mergedData.resumeName}.pdf` : "Resume.pdf"
+        }`
       : `${
-          pdfData.letterName ? `${pdfData.letterName}.pdf` : "CoverLetter.pdf"
+          mergedData.letterName
+            ? `${mergedData.letterName}.pdf`
+            : "CoverLetter.pdf"
         }`;
 
     const title = toggle
-      ? pdfData.resumeName || "Resume"
-      : pdfData.letterName || "CoverLetter";
+      ? mergedData.resumeName || "Resume"
+      : mergedData.letterName || "CoverLetter";
 
     saveAs(blob, fileName);
 
@@ -202,9 +240,9 @@ const Doc = ({ initialData }: ResumeProps) => {
       <div className="aspect-[8.5/11] w-full">
         <PDFViewer width="100%" height="100%" key={keyRef.current}>
           {toggle ? (
-            <ResumeDocs data={pdfData} />
+            <ResumeDocs data={mergedData} />
           ) : (
-            <LetterDocs data={pdfData} />
+            <LetterDocs data={mergedData} />
           )}
         </PDFViewer>
       </div>

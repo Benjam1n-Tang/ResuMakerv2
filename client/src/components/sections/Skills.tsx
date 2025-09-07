@@ -22,47 +22,48 @@ const SkillsSection = ({ skills }: SkillProps) => (
           </Text>
           <View style={styles.line} />
           <View style={{ gap: 3 }}>
-            {skills.technical && (
-              <View>
-                <Text style={styles.interestText}>
-                  <Text style={styles.bold}>Technical: </Text>
-                  {skills.technical.join(", ")}
-                </Text>
-              </View>
-            )}
 
-            {skills.languages && (
+            {skills.languages && skills.languages.length > 0 && (
               <View>
                 <Text style={styles.interestText}>
                   <Text style={styles.bold}>Languages: </Text>
-                  {skills.languages.join(", ")}
+                  {skills.languages.join(", ").trim()}
                 </Text>
               </View>
             )}
 
-            {skills.web && (
+            {skills.technical && skills.technical.length > 0 && (
+              <View>
+                <Text style={styles.interestText}>
+                  <Text style={styles.bold}>Technical: </Text>
+                  {skills.technical.join(", ").trim()}
+                </Text>
+              </View>
+            )}
+
+            {skills.web && skills.web.length > 0 && (
               <View>
                 <Text style={styles.interestText}>
                   <Text style={styles.bold}>Web Dev: </Text>
-                  {skills.web.join(", ")}
+                  {skills.web.join(", ").trim()}
                 </Text>
               </View>
             )}
 
-            {skills.interests && (
+            {skills.interests && skills.interests.length > 0 && (
               <View>
                 <Text style={styles.interestText}>
                   <Text style={styles.bold}>Interests: </Text>
-                  {skills.interests.join(", ")}
+                  {skills.interests.join(", ").trim()}
                 </Text>
               </View>
             )}
 
-            {skills.other && (
+            {skills.other && skills.other.length > 0 && (
               <View>
                 <Text style={styles.interestText}>
                   <Text style={styles.bold}>Other: </Text>
-                  {skills.other.join(", ")}
+                  {skills.other.join(", ").trim()}
                 </Text>
               </View>
             )}

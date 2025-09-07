@@ -1,6 +1,5 @@
 export type Header = {
   name: string;
-  address: string;
   city?: string;
   state?: string;
   zip?: string;
@@ -11,6 +10,8 @@ export type Header = {
 };
 
 export type Education = {
+  _id?: string;
+  active?: boolean;
   school: string;
   degree: string;
   gradDate: string;
@@ -22,6 +23,8 @@ export type Education = {
 };
 
 export type Experience = {
+  _id?: string;  
+  active?: boolean;
   role: string;
   company: string;
   location: string;
@@ -31,6 +34,8 @@ export type Experience = {
 };
 
 export type Projects = {
+  _id?: string;
+  active?: boolean;
   title: string;
   link?: string;
   stack?: string[];
@@ -38,12 +43,15 @@ export type Projects = {
 };
 
 export type Certificates = {
+  _id?: string;
+  active?: boolean;
   title: string;
   organization: string;
   endDate: string;
 };
 
 export type Skills = {
+  _id?: string;
   languages?: string[];
   technical?: string[];
   web?: string[];
@@ -75,6 +83,12 @@ export type PDFData = {
   skills?: Skills;
   letter?: Letter;
 };
+
+type SocialList = {
+  title: string;
+  link: string;
+  active: boolean
+}
 
 
 

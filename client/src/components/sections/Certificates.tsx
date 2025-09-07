@@ -8,29 +8,28 @@ type CertificateProps = {
 
 const CertificateSection = ({ certificates }: CertificateProps) => (
   <View>
-    {certificates && certificates.length > 0 && (
+    {certificates && certificates.length > 0 && certificates.some((e) => e.active) && (
       <View>
         <Text style={styles.heading}>LICENSES & CERTIFICATES</Text>
         <View style={styles.line} />
         <View>
-
-          
           {certificates.map((item, index) => (
             <View key={index}>
-              <View style={styles.smSpace}>
-                <View style={styles.seperate}>
-                  <Text>
-                    <Text style={styles.bold}>{item.title},</Text>
-                    <Text style={styles.italic}>{` ${item.organization}`}</Text>
-                  </Text>
-                  <Text style={styles.italic}>
-                    {item.endDate}
-                  </Text>
+              {item.active && (
+                <View style={styles.smSpace}>
+                  <View style={styles.seperate}>
+                    <Text>
+                      <Text style={styles.bold}>{item.title},</Text>
+                      <Text
+                        style={styles.italic}
+                      >{` ${item.organization}`}</Text>
+                    </Text>
+                    <Text style={styles.italic}>{item.endDate}</Text>
+                  </View>
                 </View>
-              </View>
+              )}
             </View>
           ))}
-          
         </View>
       </View>
     )}

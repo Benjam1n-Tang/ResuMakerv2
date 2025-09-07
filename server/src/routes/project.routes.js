@@ -1,29 +1,17 @@
 import { Router } from "express";
+import authorize from "../middlewares/auth.middleware.js";
+import { createProject, deleteProject, getProjectById, getUserProjects, updateProject } from "../controllers/project.controller.js";
 
 const projectRouter = Router();
 
-projectRouter.get("/", (req, res) =>
-  res.send({ title: "GET all projects" })
-);
+projectRouter.post("/", authorize, createProject);
 
-projectRouter.get("/user/:id", (req, res) =>
-  res.send({ title: "GET all user projects" })
-);
+projectRouter.get("/user", authorize, getUserProjects);
 
-projectRouter.get("/:id", (req, res) =>
-  res.send({ title: "GET project details" })
-);
+projectRouter.get("/:id", authorize, getProjectById);
 
-projectRouter.post("/", (req, res) =>
-  res.send({ title: "CREATE project" })
-);
+projectRouter.put("/:id", authorize, updateProject);
 
-projectRouter.put("/:id", (req, res) =>
-  res.send({ title: "UPDATE project" })
-);
-
-projectRouter.delete("/:id", (req, res) =>
-  res.send({ title: "DELETE project" })
-);
+projectRouter.delete("/:id", authorize, deleteProject);
 
 export default projectRouter;

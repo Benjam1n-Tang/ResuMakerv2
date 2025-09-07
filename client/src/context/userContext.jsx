@@ -21,7 +21,7 @@ const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const response = await axiosInstance.get(API_PATHS.USER.GET_PROFILE);
-        setUser(response.data)
+        setUser(response.data.data);
       } catch (error) {
         console.log("User not authenticated", error);
         clearUser();
@@ -35,7 +35,11 @@ const UserProvider = ({ children }) => {
 
   const updateUser = (userData) => {
     setUser(userData);
-    localStorage.setItem("token", userData.token);
+
+    if (userData.token) {
+      localStorage.setItem("token", userData.token);
+    }
+
     setLoading(false);
   };
 

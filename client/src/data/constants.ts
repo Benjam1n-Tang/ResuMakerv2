@@ -49,120 +49,129 @@ export const features = [
 
 export const sampleResumes = [
   {
-    resumeName: "BigSib",
+    resumeName: "Default Resume",
     header: {
-      name: "Benjamin Tang",
-      address: "76-44 169th Street",
-      city: "New York",
-      state: "NY",
-      zip: "11366",
-      phone: "(347) 520-7272",
-      email: "benjamin.tang.work@gmail.com",
-      socials: ["linkedin.com/in/BTang22", "github.com/Benam1n-Tang"],
-      // summary: "Trend savvy Information science major with 2 years' experience in retail and consistent record of advancement to leadership positions. Passionate about creating compelling social media content that increases customer engagement and dries website traffic and sales. Data-driven with experience adapting to virtual business needs."
+      name: "Full Name",
+      city: "City",
+      state: "State",
+      zip: "Zip",
+      phone: "Phone",
+      email: "john.doe@email.com",
     },
     education: [
       {
-        school: "Stony Brook University",
-        degree: "Bachelor of Science in Computer Science",
-        gradDate: "Expected May 2026",
-        location: "Stony Brook, NY",
-        gpa: 3.25,
+        school: "Generic University",
+        degree: "Master of XXXXXXX",
+        gradDate: "Expected May 20XX",
+        location: "City, State",
+        gpa: 4.00,
+        active: true,
         coursework: [
-          "Fundamentals of Software Development",
-          "Analysis of Algorithms",
-          "Data Structures",
-          "Principles of Database Systems",
-          "Web Security",
-          "System Fundamentals I & II",
-          "Programming Abstractions",
+          "Course 1",
+          "Course 2", "Course 3"
+        ],
+      },
+      {
+        school: "Generic University",
+        degree: "Bachelor of XXXXXXX",
+        gradDate: "Expected May 20XX",
+        location: "City, State",
+        gpa: 4.00,
+        active: true,
+        coursework: [
+          "Course 1",
+          "Course 2", "Course 3"
         ],
       },
     ],
     experience: [
       {
-        role: "Software Engineer Intern",
-        company: "Selective Corporate Internship Program",
-        location: "Remote (US)",
-        startDate: "May 2023",
-        endDate: "Aug 2023",
+        role: "Experience Role 1",
+        company: "Generic Company 1",
+        location: "City, State",
+        startDate: "Oct 20XX",
+        active: true,
+        endDate: "Present",
         bullets: [
-          "Designed and contributed to five new webiste pages, resulting in increased visibility of the program to over 300 monthly visitors.",
-          "Developed responsive front-end interfaces using Javascript, HTML, CSS, ensuring a user-friendly experience across all devices.",
-          "Promoted the program on social media, growing the follower base to over 300 followers on Instagram.",
+          "Bullet 1", "Bullet 2", "Bullet 3"
         ],
       },
       {
-        role: "Co-Founder/Tutor",
-        company: "BigSib Organization",
-        location: "New York, NY",
-        startDate: "Nov 2020",
-        endDate: "May 2022",
+        role: "Experience Role 2",
+        company: "Generic Company 2",
+        location: "City, State",
+        startDate: "Oct 20XX",
+        active: true,
+        endDate: "Jan 20XX",
         bullets: [
-          "Co-founded a non-proft tutoring program to help young students aged 12 and below improve their academic performance in school.",
-          "Arranged tutoring sessions with over 15 students to teach object-oriented programming and data structures in Python and Java.",
-          "Developed personalized lesson plans and coding exercises, enabling students to build projects and strengthen problem-solving skills.",
+          "Bullet 1", "Bullet 2", "Bullet 3"
+        ],
+      },
+      {
+        role: "Experience Role 3",
+        company: "Generic Company 3",
+        location: "City, State",
+        startDate: "Oct 20XX",
+        active: true,
+        endDate: "Jan 20XX",
+        bullets: [
+          "Bullet 1", "Bullet 2", "Bullet 3"
+        ],
+      },
+      {
+        role: "Experience Role 4",
+        company: "Generic Company 4",
+        location: "City, State",
+        startDate: "Oct 20XX",
+        active: true,
+        endDate: "Jan 20XX",
+        bullets: [
+          "Bullet 1", "Bullet 2", "Bullet 3"
         ],
       },
     ],
     projects: [
       {
-        title: "Resumaker",
-        stack: ["Typescript", "Next JS", "MongoDB", "Node JS", "Tailwind CSS"],
-        link: "https://bit.ly/4g3gF1k",
+        active: true, 
+        title: "Project 1",
+        stack: ["Item 1", "Item 2", "Item 3"],
+        link: "Link",
         bullets: [
-          "Integrated AI-driven text generation to assist users in writing tailored career summaries and cover letters.",
-          "Implemented user authentication and secure data storage, allowing users to save, edit, and manage multiple application documents.",
+          "Bullet 1", "Bullet 2"
         ],
       },
       {
-        title: "Screen Recording App",
-        stack: ["Next JS", "Xata", "Drizzle", "Tailwind CSS"],
-        link: "https://bit.ly/3JsMVyH",
+        active: true, 
+        title: "Project 2",
+        stack: ["Item 1", "Item 2", "Item 3"],
+        link: "Link",
         bullets: [
-          "Implemented video recording and storage functionality, enabling users to securely save and manage recordings in the cloud.",
-          "Designed a responsive and intuitive UI with Tailwind CSS, ensuring accessibility across desktop and mobile devices.",
+          "Bullet 1", "Bullet 2"
         ],
       },
       {
-        title: "Chess A.I.",
-        stack: ["Typescript", "React", "Tailwind CSS", "GitHub"],
-        link: "https://bit.ly/3JsMVyH",
+        active: true, 
+        title: "Project 3",
+        stack: ["Item 1", "Item 2", "Item 3"],
+        link: "Link",
         bullets: [
-          "Applied the min-max algorithm to the game of chess, developing a game of chess with the option to play locally or with a bot that can evaluate the board to make its own movement",
-          "Developed a React TypeScript application that follows the rules of chess and includes a custom UI fr all pages.",
+          "Bullet 1", "Bullet 2"
         ],
       },
       {
-        title: "Face Recognition Attendance",
-        stack: ["Python", "OpenCV"],
-        link: "https://bit.ly/4mOYkHG",
+        active: true, 
+        title: "Project 4",
+        stack: ["Item 1", "Item 2", "Item 3"],
+        link: "Link",
         bullets: [
-          "Developed a facial recognition tracking system for online meetings using Python, implemented facial encoding techniques to accurately identify participants.",
-          "Tested and utilized during online courses to high degree of precision.",
+          "Bullet 1", "Bullet 2"
         ],
       },
     ],
     skills: {
-      languages: ["Python", "Java", "C", "C++", "Javascript"],
+      languages: ["Language 1", "Language 2"],
       other: [
-        "HTML",
-        "CSS",
-        "React",
-        "Typescript",
-        "Next JS",
-        "Node JS",
-        "Flask",
-        "SQL",
-        "MongoDB",
-        "Git",
-        "Microsoft Excel",
-        "Figma",
-        "G Suite",
-        "Teamwork",
-        "Adaptability",
-        "Time Management",
-        "Customer Service",
+        "Other 1", "Other 2", "Other 3"
       ],
     },
     letter: {

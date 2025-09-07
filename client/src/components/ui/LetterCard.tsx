@@ -19,7 +19,7 @@ const LetterCard = ({ id, title, date }: LetterCardProps) => {
   };
 
   const handleOpen = () => {
-    window.open(`${BASE_URL}${API_PATHS.LETTER.GET_LETTER}${id}`, "_blank");
+   window.open(`${BASE_URL}${API_PATHS.LETTER.GET_LETTER(id)}`, "_blank");
   };
 
   const handleDelete = async () => {

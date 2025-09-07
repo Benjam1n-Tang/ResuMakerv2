@@ -1,5 +1,10 @@
 "use client";
 
+import EducationProfile from "@/components/sections/EducationProfile";
+import ExperienceProfile from "@/components/sections/ExperienceProfile";
+import PasswordProfile from "@/components/sections/PasswordProfile";
+import ProjectProfile from "@/components/sections/ProjectProfile";
+import SkillProfile from "@/components/sections/SkillProfile";
 import UserProfile from "@/components/sections/UserProfile";
 import ProfileButton from "@/components/ui/ProfileButton";
 import { useState } from "react";
@@ -16,23 +21,22 @@ const Page = () => {
       <div className="flex flex-col lg:flex-row lg:gap-3 gap-8">
         <div className="flex flex-col items-center flex-1 h-100 gap-8">
           <div className="flex lg:hidden gap-1 justify-center">
-          <ProfileButton title={"User Info"} page={page} setPage={setPage} />
-          <ProfileButton
-            title={"Passwords/Keys"}
-            page={page}
-            setPage={setPage}
-          />
-          <ProfileButton title={"Experience"} page={page} setPage={setPage} />
-          <ProfileButton
-            title={"Edu./Certifs."}
-            page={page}
-            setPage={setPage}
-          />
-          <ProfileButton title={"Projects"} page={page} setPage={setPage} />
-          <ProfileButton title={"Skills"} page={page} setPage={setPage} />
-        </div>
+            <ProfileButton title={"User Info"} page={page} setPage={setPage} />
+            <ProfileButton
+              title={"Passwords/Keys"}
+              page={page}
+              setPage={setPage}
+            />
+            <ProfileButton title={"Experience"} page={page} setPage={setPage} />
+            <ProfileButton
+              title={"Edu./Certifs."}
+              page={page}
+              setPage={setPage}
+            />
+            <ProfileButton title={"Projects"} page={page} setPage={setPage} />
+            <ProfileButton title={"Skills"} page={page} setPage={setPage} />
+          </div>
           <div>
-            
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={200}
@@ -64,7 +68,14 @@ const Page = () => {
             <ProfileButton title={"Skills"} page={page} setPage={setPage} />
           </div>
         </div>
-        <div className="flex-4">{page === "User Info" && <UserProfile />}</div>
+        <div className="flex-4">
+          {page === "User Info" && <UserProfile />}
+          {page === "Experience" && <ExperienceProfile />}
+          {page === "Edu./Certifs." && <EducationProfile />}
+          {page === "Projects" && <ProjectProfile />}
+          {page === "Skills" && <SkillProfile />}
+          {page === "Passwords/Keys" && <PasswordProfile />}
+        </div>
       </div>
     </div>
   );

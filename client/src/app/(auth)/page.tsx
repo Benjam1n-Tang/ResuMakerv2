@@ -16,7 +16,7 @@ const Page = () => {
   return (
     <div className="max-container pg-padX pt-24 flex flex-col min-h-[100dvh] gap-8">
       <div className="pg-base">
-        <div className="xl:w-80 w-auto flex flex-col gap-5">
+        <div className="xl:w-80 w-auto flex flex-col gap-5 justify-center xl:pb-20 pb-0">
           <div className="flex flex-col gap-2 items-center xl:items-start">
             <h2 className="font-semibold text-center xl:text-left">
               {" "}
@@ -38,9 +38,9 @@ const Page = () => {
             />
           </div>
         </div>
-        <div className="flex-1">
-          <div className="p-4">
-            <Image src={Img.placeholder} alt="placeholder" />
+        <div className="flex-1 flex justify-center xl:justify-end">
+          <div className="p-4 sm:w-70 w-full">
+            <Image src={Img.resume} alt="placeholder" />
           </div>
         </div>
       </div>

@@ -5,21 +5,32 @@ import { JWT_EXPIRES_IN, JWT_SECRET } from "../config/env.js";
 import User from "../models/user.model.js";
 
 export const signUp = async (req, res, next) => {
-  const session = await mongoose.startSession();
-  session.startTransaction();
-
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, verifyPassword } = req.body;
 
-    const existingUser = await User.findOne({ email }).session(session);
-    if (existingUser) {
-      throw Object.assign(new Error("User already exists"), {
-        statusCode: 409,
+    if (!name || !email || !password || !verifyPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
       });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    if (password !== verifyPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Passwords do not match",
+      });
+    }
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already in use",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       name,
@@ -27,32 +38,29 @@ export const signUp = async (req, res, next) => {
       password: hashedPassword,
     });
 
-    await newUser.save({ session });
+    await newUser.save();
 
+    // remove password from response
+    const { password: _, ...userData } = newUser.toObject();
+
+    // generate token just like in signIn
     const token = jwt.sign({ userId: newUser._id }, JWT_SECRET, {
       expiresIn: JWT_EXPIRES_IN,
     });
 
-    await session.commitTransaction();
-    session.endSession();
-
-    const user = newUser.toObject();
-    delete user.password;
-
     res.status(201).json({
       success: true,
-      message: "User created successfully",
+      message: "User signed up successfully",
       data: {
         token,
-        user,
+        user: userData,
       },
     });
   } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
     next(error);
   }
 };
+
 
 export const signIn = async (req, res, next) => {
   try {

@@ -87,10 +87,40 @@
   --text-xs--letter-spacing: 0.0018em;
 }
 
+
+/* w-full placeholder-light-tLighter dark:placeholder-dark-tLighter text-light-t dark:text-dark-t text-base py-0.75 outline-none font-sans */
+
+
 @layer components {
   .max-container {
     max-width: 1440px;
     margin: 0 auto;
+  }
+
+  .p-calendar {
+    width: 100%;
+    padding-block: calc(var(--spacing) * 0.75);
+    --tw-outline-style: none;
+    outline-style: none;
+  }
+
+  .p-calendar input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+  .p-datepicker {
+    background-color: var(--color-dark-tLight);
+  }
+  .p-datepicker-year {
+    background-color: var(--color-dark-tLight);
+  }
+
+  .dark .p-datepicker {
+    background-color: var(--color-light-tLight);
+  }
+  .dark .p-datepicker-year {
+    background-color: var(--color-light-tLight);
   }
 
   .navBar {
@@ -105,7 +135,6 @@
   ::selection {
     @apply bg-info-content;
   }
-
 
   .dark ::selection {
     @apply bg-info;

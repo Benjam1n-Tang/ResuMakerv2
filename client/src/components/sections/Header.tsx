@@ -3,7 +3,7 @@ import { Header } from "@/types";
 import { View, Text, Link } from "@react-pdf/renderer";
 
 type HeaderProps = {
-  header: Header;
+  header?: Header;
 };
 
 const normalizeUrl = (url: string) => {
@@ -16,22 +16,23 @@ const normalizeUrl = (url: string) => {
 const HeaderSection = ({ header }: HeaderProps) => (
   <View>
     {header && (
-      <View style={{ gap: 2 }}>
+      <View style={{ gap: 6 }}>
+        {/* Name */}
         <View style={styles.name}>
           <Text>{header.name.toUpperCase()}</Text>
         </View>
 
+        {/* Contact row */}
         <View
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
-            lineHeight: 0.75,
             justifyContent: "center",
           }}
         >
           <Text>
             {header.city && header.state && `${header.city}, ${header.state}  |  `}
-            {`${header.phone}  |  ${header.email}${header.socials && `  `}`}
+            {`${header.phone}  |  ${header.email}  `}
           </Text>
           {header.socials?.map((social, index) => (
             <Text key={index}>
@@ -44,7 +45,22 @@ const HeaderSection = ({ header }: HeaderProps) => (
               </Link>
             </Text>
           ))}
-          <Text style={{lineHeight: 0.7, textAlign: "center", fontStyle: "italic", paddingTop: 10}}>
+        </View>
+
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 6,
+          }}
+        >
+          <Text
+            style={{
+              lineHeight: 0.9,
+              textAlign: "center",
+              fontStyle: "italic",
+            }}
+          >
             {header.summary}
           </Text>
         </View>

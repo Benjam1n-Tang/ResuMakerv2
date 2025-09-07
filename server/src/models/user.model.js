@@ -23,23 +23,30 @@ const userSchema = new mongoose.Schema(
       type: String,
       maxLength: 20,
       trim: true,
-      default: ""
+      default: "",
     },
-    location: {
+    city: {
       type: String,
-      maxLength: 100,
+      maxLength: 50,
       trim: true,
-      default: ""
+      default: "",
     },
-    additions: {
-      type: [
-        {
-          type: String,
-          trim: true,
-          maxlength: 30,
-        },
-      ],
-      default: [],
+    state: {
+      type: String,
+      maxLength: 50,
+      trim: true,
+      default: "",
+    },
+    zip: {
+      type: String,
+      maxLength: 50,
+      trim: true,
+      default: "",
+    },
+    summary: {
+      type: String,
+      trim: true,
+      default: "",
     },
     password: {
       type: String,

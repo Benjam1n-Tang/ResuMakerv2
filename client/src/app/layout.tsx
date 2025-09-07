@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
-import { ThemeProvider } from "@/context/themeContext"
+import { ThemeProvider } from "@/context/themeContext";
 import UserProvider from "../context/userContext";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Resumaker",
@@ -18,7 +20,9 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <UserProvider>
           <ThemeProvider>
+            <Navbar />
             {children}
+            <Footer />
           </ThemeProvider>
         </UserProvider>
       </body>

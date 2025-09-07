@@ -42,33 +42,34 @@ const Navbar = () => {
       }`}
     >
       <nav className="navBar max-container pg-padX">
-        <Logo setActive={setActive}/>
+        <Logo setActive={setActive} />
+
+        {/* Don't render nav items until we know user state */}
         {!loading && user && (
           <ul className="hidden lg:flex flex-row h-8 gap-4">
-            {navLinks.map((item) => {
-              return (
-                <li
-                  key={item.label}
-                  className={`flex justify-center items-center font-semibold w-15 h-full cursor-pointer ${
-                    active === item.href ? "border-b-4" : ""
-                  }`}
-                  onClick={() => setActive(item.href)}
+            {navLinks.map((item) => (
+              <li
+                key={item.label}
+                className={`flex justify-center items-center font-semibold w-15 h-full cursor-pointer ${
+                  active === item.href ? "border-b-4" : ""
+                }`}
+                onClick={() => setActive(item.href)}
+              >
+                <Link
+                  href={item.href}
+                  className="h-full w-full flex items-center justify-center"
                 >
-                  <Link
-                    href={item.href}
-                    className="h-full w-full flex items-center justify-center"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         )}
+
         <div className="hidden lg:flex gap-2 items-center">
           <ThemeButton />
-          <div>
-            {!isAuthPage && !loading && user ? (
+          {!loading ? (
+            user ? (
               <Icon width="3em" height="3em" setActive={setActive} />
             ) : (
               <Button
@@ -77,9 +78,13 @@ const Navbar = () => {
                 variant={1}
                 onClick={handleSignIn}
               />
-            )}
-          </div>
+            )
+          ) : (
+            // Optional: small skeleton / spinner
+            <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse" />
+          )}
         </div>
+
         {!loading && user && <Hamburger setActive={setActive} />}
       </nav>
     </header>

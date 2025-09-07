@@ -8,7 +8,7 @@ const experienceSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    title: {
+    role: {
       type: String,
       required: [true, "Experience title is required"],
       trim: true,
@@ -21,24 +21,9 @@ const experienceSchema = new mongoose.Schema(
       required: [true, "Experience "],
       maxLength: 100,
     },
-    description: {
-      type: String,
-      required: [true, "Experience description is required"],
-      trim: true,
-      minLength: 10,
-      maxLength: 300,
-    },
     bullets: {
       type: [String],
       default: [],
-      validate: {
-        validator: function (arr) {
-          return arr.every(
-            (str) => typeof str === "string" && str.length <= 500
-          );
-        },
-        message: "Each bullet must be a string under 500 characters",
-      },
     },
     location: {
       type: String,
@@ -47,28 +32,10 @@ const experienceSchema = new mongoose.Schema(
       maxLength: 100,
     },
     startDate: {
-      type: Date,
-      validate: {
-        validator: function (value) {
-          if (this.endDate && value) {
-            return value <= this.endDate;
-          }
-          return true;
-        },
-        message: "Start date must be before or equal to end date",
-      },
+      type: mongoose.Schema.Types.Mixed, 
     },
     endDate: {
-      type: Date,
-      validate: {
-        validator: function (value) {
-          if (this.startDate && value) {
-            return value >= this.startDate;
-          }
-          return true;
-        },
-        message: "End date must be after or equal to start date.",
-      },
+      type: mongoose.Schema.Types.Mixed, 
     },
   },
   { timestamps: true }

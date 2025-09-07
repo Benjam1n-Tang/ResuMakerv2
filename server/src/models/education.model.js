@@ -8,22 +8,21 @@ const educationSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    degree: {
-      type: String,
-      required: [true, "Education must have degree"],
-      trim: true,
-      minLength: 3,
-      maxLength: 60,
-    },
     school: {
       type: String,
       trim: true,
       required: [true, "Education must have name"],
       maxLength: 150,
     },
-    courses: {
-      type: [String],
-      default: [],
+    degree: {
+      type: String,
+      required: [true, "Education must have degree"],
+      trim: true,
+      minLength: 3,
+      maxLength: 100,
+    },
+    gradDate: {
+      type: mongoose.Schema.Types.Mixed, 
     },
     location: {
       type: String,
@@ -31,30 +30,21 @@ const educationSchema = new mongoose.Schema(
       required: [true, "Work must have a location"],
       maxLength: 100,
     },
-    startDate: {
-      type: Date,
-      validate: {
-        validator: function (value) {
-          if (this.endDate && value) {
-            return value <= this.endDate;
-          }
-          return true;
-        },
-        message: "Start date must be before or equal to end date",
-      },
+    gpa: {
+      type: String,
     },
-    endDate: {
-      type: Date,
-      validate: {
-        validator: function (value) {
-          if (this.startDate && value) {
-            return value >= this.startDate;
-          }
-          return true;
-        },
-        message: "End date must be after or equal to start date.",
-      },
+    coursework: {
+      type: [String],
+      default: [],
     },
+    involvement: {
+      type: [String],
+      default: []
+    },
+    leadership: {
+      type: [String],
+      default: []
+    }
   },
   { timestamps: true }
 );

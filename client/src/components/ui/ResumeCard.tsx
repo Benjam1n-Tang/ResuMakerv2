@@ -19,7 +19,7 @@ const ResumeCard = ({ id, title, date }: ResumeCardProps) => {
   };
 
   const handleOpen = () => {
-    window.open(`${BASE_URL}${API_PATHS.RESUME.GET_RESUME}${id}`, "_blank");
+    window.open(`${BASE_URL}${API_PATHS.RESUME.GET_RESUME(id)}`, "_blank");
   };
 
   const handleDelete = async () => {
