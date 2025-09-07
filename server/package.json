@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "dev": "nodemon app.js",
-    "vercel-start" : "node app.js"
+    "vercel-start": "node app.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -23,6 +23,7 @@
     "pdf-lib": "^1.17.1",
     "pdf-poppler": "^0.2.1",
     "pdf2pic": "^3.2.0",
+    "serverless-http": "^4.0.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {
