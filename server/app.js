@@ -47,9 +47,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to Benjamin API");
 });
 
-app.listen(PORT, async () => {
-  console.log(`ResuMaker is running on http://localhost:${PORT}`);
-  await connectToDatabase();
-});
+// app.listen(PORT, async () => {
+//   console.log(`ResuMaker is running on http://localhost:${PORT}`);
+//   await connectToDatabase();
+// });
+
+modeule.exports = app;
 
 export default app;
