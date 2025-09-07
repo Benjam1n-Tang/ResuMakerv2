@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "projects": {
-    "server": {
-      "rootDirectory": "server"
-    }
-  },
   "builds": [
     {
       "src": "server/package.json",
