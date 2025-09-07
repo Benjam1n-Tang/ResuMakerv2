@@ -29,18 +29,21 @@ import DocSwitch from "../ui/DocSwitch";
 import axiosInstance from "@/lib/axiosInstance";
 import { API_PATHS } from "@/lib/apiPaths";
 
-// Only PDFViewer needs dynamic import because it's browser-only
-const PDFViewer = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
-  {
-    ssr: false,
-    loading: () => (
-      <p className="flex justify-center items-center w-full h-full">
-        Loading PDF...
-      </p>
-    ),
-  }
-);
+// const PDFViewer = dynamic(
+//   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+//   {
+//     ssr: false,
+//     loading: () => (
+//       <p className="flex justify-center items-center w-full h-full">
+//         Loading PDF...
+//       </p>
+//     ),
+//   }
+// );
+
+const PDFViewer = dynamic(() => import("../../lib/pdfViewer"), {
+  ssr: false,
+});
 
 const sectionMap = {
   education: (data: PDFData) => <EducationSection education={data.education} />,
