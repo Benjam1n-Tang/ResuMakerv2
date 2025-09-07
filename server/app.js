@@ -52,6 +52,5 @@ app.get("/", (req, res) => {
 //   await connectToDatabase();
 // });
 
-module.exports = app;
 
 export default app;
