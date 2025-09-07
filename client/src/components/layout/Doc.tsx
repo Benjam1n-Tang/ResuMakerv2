@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Page, View, Document, Text, pdf } from "@react-pdf/renderer";
+// import { Page, View, Document, Text, pdf } from "@react-pdf/renderer";
+import { pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import { sampleResumes } from "@/data/constants";
@@ -28,6 +29,23 @@ import Button from "../ui/Button";
 import DocSwitch from "../ui/DocSwitch";
 import axiosInstance from "@/lib/axiosInstance";
 import { API_PATHS } from "@/lib/apiPaths";
+
+const PDFDocument = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.Document),
+  { ssr: false }
+);
+const PDFPage = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.Page),
+  { ssr: false }
+);
+const PDFView = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.View),
+  { ssr: false }
+);
+const PDFText = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.Text),
+  { ssr: false }
+);
 
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
@@ -157,39 +175,39 @@ const Doc = ({
   };
 
   const ResumeDocs = ({ data }: PDFProps) => (
-    <Document title={data.resumeName ? `${data.resumeName}.pdf` : "Resume.pdf"}>
-      <Page size="LETTER" style={styles.page}>
-        <View style={{ gap: 12 }}>
+    <PDFDocument title={data.resumeName ? `${data.resumeName}.pdf` : "Resume.pdf"}>
+      <PDFPage size="LETTER" style={styles.page}>
+        <PDFView style={{ gap: 12 }}>
           <HeaderSection header={data.header} />
-          <View style={{ gap: 4 }}>
+          <PDFView style={{ gap: 4 }}>
             {order.map((key) => (
-              <View key={key}>{sectionMap[key](data)}</View>
+              <PDFView key={key}>{sectionMap[key](data)}</PDFView>
             ))}
-          </View>
-        </View>
-      </Page>
-    </Document>
+          </PDFView>
+        </PDFView>
+      </PDFPage>
+    </PDFDocument>
   );
 
   const LetterDocs = ({ data }: PDFProps) => (
-    <Document
+    <PDFDocument
       title={data.letterName ? `${data.letterName}.pdf` : "CoverLetter.pdf"}
     >
-      <Page size="LETTER" style={styles.page}>
-        <View style={{ fontSize: 12, lineHeight: 1.4, gap: 10 }}>
+      <PDFPage size="LETTER" style={styles.page}>
+        <PDFView style={{ fontSize: 12, lineHeight: 1.4, gap: 10 }}>
           <ContactSection contact={data.header} />
-          <Text style={styles.bold}>
+          <PDFText style={styles.bold}>
             {""}
             {new Date().toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
-          </Text>
+          </PDFText>
           <LetterSection name={data.header.name} letter={data.letter} />
-        </View>
-      </Page>
-    </Document>
+        </PDFView>
+      </PDFPage>
+    </PDFDocument>
   );
 
   const saveFile = async () => {
