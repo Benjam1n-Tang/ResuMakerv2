@@ -12,10 +12,13 @@ type inputProps = {
   ) => void;
   onDateChange?: (value: Date | "Present" | null) => void;
   placeholder: string;
-  type?: string; // can be "text" | "password"
+  type?: string; 
   present?: boolean;
   variant: "1" | "2" | "3";
   edit: boolean;
+  ai?: boolean;
+  disabled?: boolean;
+   onAiClick?: () => void; 
 };
 
 const ProfileInput = ({
@@ -29,6 +32,9 @@ const ProfileInput = ({
   variant,
   type = "text",
   edit,
+  ai,
+  disabled = true,
+  onAiClick,
 }: inputProps) => {
   const [showSecret, setShowSecret] = useState(false);
 
@@ -45,7 +51,12 @@ const ProfileInput = ({
 
   return (
     <div className="w-full flex flex-col gap-0.5">
-      <p className="pl-0.5 font-medium"> {label} </p>
+      <div className="flex justify-between items-center">
+        <p className="pl-0.5 font-medium"> {label} </p>
+        <div className="flex flex-col">
+          {ai && <Button text="Fix AI" disabled={disabled} variant={1} className="py-1 px-2" onClick={onAiClick}/>}
+        </div>
+      </div>
       <div className="flex flex-row items-center bg-light-fg dark:bg-dark-fg border-2 border-light-bd dark:border-dark-bd rounded-lg px-1 gap-1 focus-within:ring-2 focus-within:ring-light-t dark:focus-within:ring-dark-t">
         {variant === "1" && (
           <>

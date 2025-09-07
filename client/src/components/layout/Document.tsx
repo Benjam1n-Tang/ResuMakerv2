@@ -10,6 +10,7 @@ import {
   Education,
   Experience,
   Header,
+  Letter,
   PDFData,
   Projects,
   Skills,
@@ -69,6 +70,7 @@ type ResumeProps = {
   experience?: Experience[];
   projects?: Projects[];
   skills?: Skills;
+  letter?: Letter;
 };
 
 const Doc = ({
@@ -82,6 +84,7 @@ const Doc = ({
   experience,
   projects,
   skills,
+  letter,
 }: ResumeProps) => {
   const [toggle, setToggle] = useState(true);
   const [pdfData, setPdfData] = useState<PDFData>(
@@ -103,7 +106,8 @@ const Doc = ({
     certificates: certificates,
     experience: experience,
     projects: projects,
-    skills: skills
+    skills: skills,
+    letter: letter,
   };
 
   keyRef.current++;

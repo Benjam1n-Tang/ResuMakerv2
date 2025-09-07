@@ -8,12 +8,18 @@ import {
 import { useState } from "react";
 import ProfileInput from "../ui/ProfileInput";
 import Button from "../ui/Button";
+import OpenAI from "openai";
 
 type CreateProjectProps = {
+  apiKey: string | null;
   projects: Projects[];
   setProjects: React.Dispatch<React.SetStateAction<Projects[]>>;
 };
-const CreateProject = ({ projects, setProjects }: CreateProjectProps) => {
+const CreateProject = ({
+  apiKey,
+  projects,
+  setProjects,
+}: CreateProjectProps) => {
   const [draftProjects, setDraftProjects] = useState<Projects[]>(projects);
 
   const handleDragEnd = (result: DropResult) => {
@@ -38,6 +44,55 @@ const CreateProject = ({ projects, setProjects }: CreateProjectProps) => {
           : pro
       )
     );
+  };
+
+  const handleAiBullets = async (index: number, pro: Projects) => {
+    if (!apiKey || apiKey.length <= 10) return;
+
+    try {
+      const client = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+
+      const prompt = `
+Generate 3–4 professional resume bullet points for the following project.
+Make them concise, technical, and achievement-oriented.
+Use action verbs and highlight measurable results, skills, or impact.
+
+Project Title: ${pro.title}
+Tech Stack: ${pro.stack?.join(", ") || "N/A"}
+Existing Bullets:
+${pro.bullets?.map((b) => "- " + b).join("\n") || "None"}
+`;
+
+      const completion = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a career coach and resume expert. You write resume bullets for projects that are concise, technical, and impactful. Always output 3–4 bullet points.",
+          },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.6,
+      });
+
+      const aiText = completion.choices[0].message.content?.trim();
+
+      if (aiText) {
+        const newBullets = aiText
+          .split("\n")
+          .map((s) => s.replace(/^[-•]\s*/, "").trim())
+          .filter((s) => s.length > 0);
+
+        setDraftProjects((prev) =>
+          prev.map((projItem, i) =>
+            i === index ? { ...projItem, bullets: newBullets } : projItem
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Error generating AI bullets:", err);
+    }
   };
 
   const handleBulletChange = (index: number, value: string) => {
@@ -161,7 +216,10 @@ const CreateProject = ({ projects, setProjects }: CreateProjectProps) => {
                             onChange={({ target }) =>
                               handleBulletChange(index, target.value)
                             }
+                            ai={true}
+                            onAiClick={() => handleAiBullets(index, pro)}
                             edit={true}
+                            disabled={!apiKey || apiKey.length <= 10}
                             placeholder="Coursework..."
                             variant="2"
                           />

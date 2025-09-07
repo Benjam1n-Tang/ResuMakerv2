@@ -1,6 +1,6 @@
 "use client";
 
-import { Certificates, Education, Experience } from "@/types";
+import { Experience } from "@/types";
 import { useState } from "react";
 import {
   DragDropContext,
@@ -10,13 +10,16 @@ import {
 } from "@hello-pangea/dnd";
 import ProfileInput from "../ui/ProfileInput";
 import Button from "../ui/Button";
+import OpenAI from "openai";
 
 type CreateEducationProps = {
+  apiKey: string | null;
   experience: Experience[];
   setExperience: React.Dispatch<React.SetStateAction<Experience[]>>;
 };
 
 const CreateExperience = ({
+  apiKey,
   experience,
   setExperience,
 }: CreateEducationProps) => {
@@ -30,21 +33,69 @@ const CreateExperience = ({
     items.splice(result.destination.index, 0, moved);
     setDraftExperience(items);
   };
+  const handleAiBullets = async (index: number, exp: Experience) => {
+    if (!apiKey || apiKey.length <= 10) return;
+
+    try {
+      const client = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+
+      const prompt = `
+Generate 3–4 professional resume bullet points for the following experience.
+Make them concise, achievement-oriented, and use strong action verbs.
+Where possible, highlight measurable impact, scope, or results.
+
+Role: ${exp.role}
+Company: ${exp.company}
+Start Date: ${exp.startDate || "N/A"}
+End Date: ${exp.endDate || (exp.active ? "Present" : "N/A")}
+Existing Bullets: 
+${exp.bullets?.map((b) => "- " + b).join("\n") || "None"}
+`;
+
+      const completion = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a career coach and resume expert. You write resume bullets that maximize a candidate’s chances of getting hired. Always output 3–4 bullet points.",
+          },
+          { role: "user", content: prompt },
+        ],
+        temperature: 0.6,
+      });
+
+      const aiText = completion.choices[0].message.content?.trim();
+
+      if (aiText) {
+        const newBullets = aiText
+          .split("\n")
+          .map((s) => s.replace(/^[-•]\s*/, "").trim())
+          .filter((s) => s.length > 0);
+
+        setDraftExperience((prev) =>
+          prev.map((expItem, i) =>
+            i === index ? { ...expItem, bullets: newBullets } : expItem
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Error generating AI bullets:", err);
+    }
+  };
 
   const handleBulletChange = (index: number, value: string) => {
-  setDraftExperience((prev) =>
-    prev.map((exp, i) =>
-      i === index
-        ? {
-            ...exp,
-            bullets: value
-              .split(/\n/) // split only on newlines
-              .map((s) => s.replace(/^-\s*/, "")) 
-          }
-        : exp
-    )
-  );
-};
+    setDraftExperience((prev) =>
+      prev.map((exp, i) =>
+        i === index
+          ? {
+              ...exp,
+              bullets: value.split(/\n/).map((s) => s.replace(/^-\s*/, "")),
+            }
+          : exp
+      )
+    );
+  };
 
   const handleSave = () => {
     setExperience(draftExperience);
@@ -141,11 +192,16 @@ const CreateExperience = ({
                         <div className="flex flex-col gap-1">
                           <ProfileInput
                             label="Bullets Seperated By New Line"
-                            value={exp.bullets?.map((b) => `- ${b}`).join("\n") || ""}
+                            value={
+                              exp.bullets?.map((b) => `- ${b}`).join("\n") || ""
+                            }
                             onChange={({ target }) =>
                               handleBulletChange(index, target.value)
                             }
+                            onAiClick={() => handleAiBullets(index, exp)}
+                            ai={true}
                             edit={true}
+                            disabled={!apiKey || apiKey.length <= 10}
                             placeholder="Coursework..."
                             variant="2"
                           />

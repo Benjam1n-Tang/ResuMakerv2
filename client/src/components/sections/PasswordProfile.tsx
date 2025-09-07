@@ -15,7 +15,7 @@ const PasswordProfile = () => {
 };
 
   const handleSave = () => {
-    if (isValidKey(tempKey)) {
+    if (isValidKey(tempKey) || tempKey === "") {
       localStorage.setItem("key", tempKey.trim());
       setApiKey(tempKey.trim());
       setError(null);
@@ -37,7 +37,7 @@ const PasswordProfile = () => {
             type="password" 
             value={tempKey}
             onChange={({ target }) => setTempKey(target.value)}
-            label="OpenAI API Key"
+            label="OpenAI API Key (GPT-4.1)"
             placeholder="sk-xxxxxxxxxxxxxxxx"
             variant="1"
             edit={true}

@@ -4,6 +4,7 @@ import CreateDocument from "@/components/layout/CreateDocument";
 import CreateEducation from "@/components/layout/CreateEducation";
 import CreateExperience from "@/components/layout/CreateExperience";
 import CreateHeader from "@/components/layout/CreateHeader";
+import CreateLetter from "@/components/layout/CreateLetter";
 import CreateProject from "@/components/layout/CreateProject";
 import Doc from "@/components/layout/Document";
 import { UserContext } from "@/context/userContext";
@@ -14,6 +15,7 @@ import {
   Education,
   Experience,
   Header,
+  Letter,
   Projects,
   Skills,
   SocialList,
@@ -33,6 +35,7 @@ const Page = () => {
   const { user, loading, updateUser } = useContext(UserContext);
   const [resumeTitle, setResumeTitle] = useState("");
   const [letterTitle, setLetterTitle] = useState("");
+  const [website, setWebsite] = useState("");
   const [selected, setSelected] = useState("Document");
   const [order, setOrder] = useState<SectionKey[]>([
     "education",
@@ -41,6 +44,7 @@ const Page = () => {
     "certificates",
     "skills",
   ]);
+  const [apiKey, setApiKey] = useState<string | null>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -56,6 +60,18 @@ const Page = () => {
   const [experience, setExperience] = useState<Experience[]>([]);
   const [projects, setProjects] = useState<Projects[]>([]);
   const [skills, setSkills] = useState<Skills>();
+  const [letter, setLetter] = useState<Letter>({
+    manager: "",
+    company: "",
+    companyAddress: "",
+    companyCity: "",
+    companyState: "",
+    companyZip: "",
+    position: "",
+    salutation: "",
+    body: [],
+    closingText: "",
+  });
   const [header, setHeader] = useState<Header>({
     name: "",
     email: "",
@@ -233,7 +249,6 @@ const Page = () => {
       setSkills(response.data.data);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        // If the backend says "no skill doc found", create one
         if (err.response?.status === 404) {
           try {
             const createResponse = await axiosInstance.post(
@@ -288,6 +303,10 @@ const Page = () => {
       fetchProjects();
       fetchSkills();
     }
+    if (typeof window !== "undefined") {
+      const storedKey = localStorage.getItem("key");
+      setApiKey(storedKey);
+    }
   }, [loading, user]);
 
   return (
@@ -303,12 +322,20 @@ const Page = () => {
           experience={experience}
           projects={projects}
           skills={skills}
+          letter={letter}
         />
       </div>
       <div className="flex-1 flex flex-col gap-3">
         <div className="flex flex-col gap-2 items-center lg:items-start text-center lg:text-left">
           <h3 className="font-semibold">Create New</h3>
-          <h6>Create a new resume and cover letter</h6>
+          <h6>Create a new resume and cover letter.</h6>
+          <p>
+            To save info, add info, and/or delete info, please input them in
+            your profile page. To use AI, add your openAI key to your profile,
+            provide the website of your application, and make sure your fields
+            are filled appropriately. Not following these directions can give
+            mixed results.
+          </p>
         </div>
         <div>
           <select
@@ -326,12 +353,24 @@ const Page = () => {
         </div>
         {selected === "Document" && (
           <CreateDocument
+            apiKey={apiKey}
             mainOrder={order}
             setMainOrder={setOrder}
+            mainWebsite={website}
+            setMainWebsite={setWebsite}
             mainResumeTitle={resumeTitle}
             setMainResumeTitle={setResumeTitle}
             mainLetterTitle={letterTitle}
             setMainLetterTitle={setLetterTitle}
+            header={header}
+            education={education}
+            experience={experience}
+            projects={projects}
+            skills={skills}
+            letter={letter}
+            setExperience={setExperience}
+            setProjects={setProjects}
+            setLetter={setLetter}
           />
         )}
         {selected === "Header" && (
@@ -365,12 +404,25 @@ const Page = () => {
         )}
         {selected === "Experience" && (
           <CreateExperience
+            apiKey={apiKey}
             experience={experience}
             setExperience={setExperience}
           />
         )}
         {selected === "Projects" && (
-          <CreateProject projects={projects} setProjects={setProjects} />
+          <CreateProject
+            apiKey={apiKey}
+            projects={projects}
+            setProjects={setProjects}
+          />
+        )}
+        {selected === "Letter" && (
+          <CreateLetter
+            apiKey={apiKey}
+            letter={letter}
+            setLetter={setLetter}
+            website={website}
+          />
         )}
       </div>
     </div>

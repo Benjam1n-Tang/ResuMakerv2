@@ -17,6 +17,7 @@
     "html-to-image": "^1.11.13",
     "next": "15.4.5",
     "next-themes": "^0.4.6",
+    "openai": "^5.19.1",
     "pdfjs-dist": "^5.4.54",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
