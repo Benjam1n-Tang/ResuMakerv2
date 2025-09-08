@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://resu-maker-front.vercel.app/"
+      "https://resu-maker-front.vercel.app"
     ],
     credentials: true,
   })
